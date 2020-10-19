@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("username", customer.getCustomerId());
 				session.setAttribute("rolecode", "adm");
 				System.out.println("Admin");
-				response.sendRedirect("adminHomePage.jsp");
+				response.sendRedirect("admin.jsp");
 			
 			}
 			else if(admin.validateLogin(customer).equals("usr"))
