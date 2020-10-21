@@ -1,25 +1,17 @@
-<%@page import="jdk.internal.misc.FileSystemOption"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Home Page</title>
-</head>
-<body>
+<title>Insert title here</title>
 <style>
-* {
-	padding: 0px;
-	margin: 0px;
-}
-.bgpic {
-	background-image: url("background.jpg");
-	opacity: 0.5;
-	height: 100vh;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
+* {box-sizing: border-box;}
+
+
+body { 
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 ul {
 	list-style-type: none;
@@ -37,15 +29,74 @@ li a {
 	padding: 14px 16px;
 	text-decoration: none;
 	width: 200px;
-	font-size: 60%;
+	font-size: 80%;
 }
-/* Change the link color to #111 (black) on hover */
-li a:hover {
-	background-color: #a89e8a;
-	font-size: 200%;
+.header {
+  overflow: hidden;
+  background-color: #291f04;
+  padding: 13px 10px;
 }
-.active {
-	background-color: #a89e8a;
+
+.header a {
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  text-decoration: none;
+  font-size: 30px; 
+  line-height: 35px;
+  border-radius: 4px;
+}
+
+img{
+  width:25%;
+  float:left;
+  display: inline-block;
+}
+/*.header a:hover {
+  background-color: #ddd;
+  color: black;
+}*/
+
+.header-right a:hover {
+  float: right;
+  right:55px;
+  background-color: #ddd;
+  color: black;
+}
+.header-right {
+float: right;
+}
+
+@media screen and (max-width: 500px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  
+  .header-right {
+    float: none;
+  } 
+}
+.footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	color: white;
+	background-color: #291f04;
+	margin-top: 100%;
+	width: 100%;
+	height: 5%;
+	font-size: 20px;
+	text-align: center;
+}
+body {
+ background-image:url('background.jpg');
+ height: 100vh;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 .loginform {
 	margin-top: 10%;
@@ -62,46 +113,6 @@ li a:hover {
 	box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0
 		rgba(0, 0, 0, .19);
 	border: 3px solid #f1f1f1;
-}
-.header {
-	overflow: hidden;
-	background-color: #a89e8a;
-	padding: 20px 10px;
-	opacity: 0.8;
-}
-.header a {
-	float: left;
-	color: white;
-	text-align: center;
-	padding: 12px;
-	text-decoration: none;
-	font-size: 28px;
-	line-height: 25px;
-	border-radius: 4px;
-}
-.header a.logo {
-	weight: 10;
-	font-size: 40px;
-}
-.header a:hover {
-	background-color: #a89e8a;
-}
-.header a.active {
-	background-color: #a89e8a;
-	color: white;
-}
-.header-right {
-	float: right;
-}
-@media screen and (max-width: 500px) {
-	.header a {
-		float: none;
-		display: block;
-		text-align: left;
-	}
-	.header-right {
-		float: none;
-	}
 }
 .input {
 	width: 170px;
@@ -150,46 +161,17 @@ li a:hover {
 	left: 40%;
 	top: -11%;
 }
-.footer {
-	position: fixed;
-	left: 0;
-	bottom: 0;
-	color: white;
-	background-color: #a89e8a;
-	margin-top: 100%;
-	width: 100%;
-	height: 5%;
-	font-size: 200%;
-	text-align: center;
-	opacity: 0.7;
-}
 table {
 	width: 50%;
 	margin-left: 20%;
 	margin-top: 15%;
 }
-b {
-	color: black;
-}
-.errormessage {
-	color: red;
-	position: absolute;
-	top: 20%;
-	left: 40%;
-	font-size: 150%;
+#header ul li {
+    display:block;
+    padding:20px;
 }
 </style>
-
-<meta charset="ISO-8859-1">
-<title>Home Page</title>
-
 <script type="text/javascript">
-    /*function logout() {
-    	// document.getElementById("logout").action="./LogoutServlet";
-    	 //document.getElementById("logout").method = "GET";
-    	 //document.getElementById("logout").submit();
-    	 document.getElementById("log").style.display = "block";
-    }*/
     function login() {
 		document.getElementById("log").style.display = "block";
     }
@@ -198,70 +180,45 @@ b {
 		document.getElementById("log").style.display = "none";
 	}
 	
-	//window.history.forward();
-	//function noBack() {
-		//window.history.foward();
-	//}
 </script>
-
 </head>
-
-<body class="bgpic">
+<body>
 <%
   response.setHeader("Cache-Control","no-cache");
   response.setHeader("Cache-Control","no-store");
   response.setHeader("Pragma","no-cache");
   response.setDateHeader ("Expires", 0);
 
-  if(session.getAttribute("username")==null)
-     response.sendRedirect("index.jsp");
-
   %> 
-
-<% if (session != null) {
+  <% if (session != null) {
          if (session.getAttribute("username") != null) {
             int id = (Integer)session.getAttribute("username");
             %><%= session.getAttribute("username")%> <%    
          }
       } 
 %>
-	<div class="header">
-
-		<ul>
-			<li><a class="logo"><b>T-CKT</b></a></li>
-			<div class="header-right">
-				<li><a href="index.jsp" class="active"><b>Home </b></a></li>
+<div class="header">
+  <a class="logo"><img src="loggo.PNG" ></img></a>
+  <ul>
+  <div class="header-right">
 				<% if (session.getAttribute("username") == null) {
-			            %> <a class="active" href="register.jsp" > <b>Register</b></a></li> <%
+			            %> <li><a  href="register.jsp" >Register</a></li> <%
 					}  else {%>
 					 <% }%>
 				<% if (session.getAttribute("username") != null) {
 			            int id = (Integer)session.getAttribute("username");
 			            System.out.println("session id "+ id); 
-					%><li><a class="active" href="./LogoutServlet" id="logout"> <b>Logout</b></a></li><%
+					%><li><a href="./LogoutServlet" id="logout"> Logout</a></li><%
 					}  else {%>
-					<li><a class="active" href="#" onclick="login()" id="login"> <b>Login
+					<li><a href="#" onclick="login()" id="login">Login
 					 <% }%>
-					</b></a></li>
-				<li><a href="about.html" class="active"><b>About US </b></a></li>
+					</a></li>
+    <li><a href="about.html">About</a></li>
+  </div>
+  </ul>
+</div>
 
-			</div>
-		</ul>
-
-
-	</div>
-	<% if(session != null ) {%>
-	<h1>Session is :<%=request.getSession() %></h1>
-	<h1>Session is <%= session.getAttribute("username") %></h1>
-	<% } %>
-<% if(request.getAttribute("logout")!=null) {%>
-<h1 style="color:black;"><%=request.getAttribute("logout") %></h1>
-<%} %>
-<% if(request.getAttribute("errormessage")!=null) {%>
-<h1 style="color:black;"><%=request.getAttribute("errormessage") %></h1>
-<%} %>
-
-	<div class="loginform" id="log">
+<div class="loginform" id="log">
 		<img src="cross.png" class="img" onclick="cross()">
 
 		<table style="margin-top: 30%;">
@@ -271,7 +228,7 @@ b {
 			<br>
 			<form action="./LoginServlet" method="post">
 				<tr>
-					<td><b>UserName:</b></td>
+					<td><b>UserId:</b></td>
 					<td><input type="number" name="user" class="input" maxlength="4" pattern = [0-9]{4}></td>
 				</tr>
 
@@ -290,10 +247,10 @@ b {
 		</table>
 
 	</div>
-
-	<div class="footer" style="font-size: 20px">
-		<span style="font-size: 15px">&#9400;</span> Copyrights Capgemini
+<div class="footer">
+  <span style="font-size: 15px">&#9400;</span> Copyrights Capgemini
 		India Ltd.
-	</div>
+</div>
+
 </body>
 </html>
